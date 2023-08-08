@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据绑定</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        单向数据绑定：
+        v-bind:href ="xxx"
+        1.	语法：或简写为 :href
+        2.	特点：数据只能从 data 流向页面
+        双向数据绑定：
+        v-mode:value="xxx"	或简写为	v-model="xxx"
+        1.	语法：
+        2.	特点：数据不仅能从 data 流向页面，还能从页面流向 data
+
+     -->
+    <!--准备好一个容器-->
+    <div id="root">
+        单向数据绑定：<input type="text" v-bind:value="name">
+        <br>
+        <!-- v-model指令只能应用于表单类元素（输入类元素） -->
+        <!-- 双向数据绑定：<input type="text" v-model:value="name"> -->
+        <!-- 简写 -->
+        双向数据绑定：<input type="text" v-model="name">
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false//阻止Vue在启动时生成生产提示
+        new Vue({
+            el:"#root",
+            data:{
+                name:"猫桑"
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!--
+ * @Description: 
+ * @Version: 2.0
+ * @Autor: Lai
+ * @Date: 2023-07-25 15:58:55
+ * @LastEditors: Lai
+ * @LastEditTime: 2023-07-26 11:56:48
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表排序</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 遍历数组 -->
+        <h2>人员列表</h2>
+        <input type="text" placeholder="请输入姓名" v-model="keyWord">
+        <button @click="sortType = 2">年龄升序</button>
+        <button @click="sortType = 1">年龄降序</button>
+        <button @click="sortType = 0">原始顺序</button>
+        <ul>
+            <li v-for="(p,index) in filPersons" :key="p.id">
+                {{p.name}}-{{p.age}}-{{p.sex}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false//阻止Vue在启动时生成生产提示
+    
+    // 用computed实现
+    new Vue({
+        el:'#root',
+        data:{
+            keyWord:'',
+            sortType:0,//0原顺序，1降序，2升序
+            persons:[
+                {id:'001',name:'蒋新宇',age:27,sex:'男'},
+                {id:'002',name:'刘天宇',age:26,sex:'男'},
+                {id:'003',name:'杨鹏飞',age:19,sex:'男'},
+                {id:'004',name:'蒋展鹏',age:21,sex:'男'},
+            ]
+           
+        }, 
+        computed:{
+            filPersons(){
+                //filter也是一个常用的操作，它用于把Array的某些元素过滤掉，然后返回剩下的元素。
+                //return中指定返回的条件
+                const arr = this.persons.filter((p)=>{
+                    //indexOf() 方法可返回数组中某个指定的元素位置
+                    //如果在数组中没找到指定元素则返回 -1
+                    return p.name.indexOf(this.keyWord) !==-1;
+                })
+                //判断一下是否需要排序，//0原顺序，1降序，2升序
+                if(this.sortType){
+                    //若 p1 小于 p2，在排序后的数组中 p1 应该出现在 p2之前，则返回一个小于 0 的值(升序)
+                    //若 p1 等于 p2，则返回 0。
+                    //若 p1 大于p2，则返回一个大于 0 的值。(降序) 
+                    arr.sort((p1,p2)=>{
+                        return this.sortType === 1 ? p2.age-p1.age : p1.age-p2.age;
+                    })
+                }
+                return arr;
+            }
+        }
+    })
+</script>
+</html>

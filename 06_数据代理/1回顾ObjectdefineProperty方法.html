@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        let number = 18;
+        let cat = {
+            name:"猫桑",
+            sex:"公"
+        }
+        //此方法不能被遍历，需加入enumerable:true才能被遍历
+        Object.defineProperty(cat,'age',{
+            // value:5,//设置age值
+            // enumerable:true,//控制属性是否可以被枚举，默认值为false
+            // writable:true,//控制属性是否可以被修改，默认值为false
+            // configurable:true//控制属性是否可以被删除，默认值为false
+            //当有人读取cat的age属性时，get(getter)函数就会被调用，返回值就是age的值
+            get:function(){
+                console.log("有人读取age属性");//先执行
+                return number;
+            },
+            ////当有人修改cat的age属性时，set(setter)函数就会被调用，会收到修改的具体值
+            set(value){
+                console.log("有人修改age值,且值是value");
+                number = value;
+            }
+        })
+        // console.log(Object.keys(cat))//遍历对象的属性成为一个数组
+        console.log(cat);
+    </script>
+</body>
+</html>

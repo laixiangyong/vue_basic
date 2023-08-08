@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!--准备好一个容器-->
+    <div id="root">
+        <!-- {{}}当中填js表达式 -->
+        <h1>Hi,{{name}}</h1>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false//阻止Vue在启动时生成生产提示
+        // const v = new Vue({
+        //     // el:"#root",//el第一种写法
+        //     data:{
+        //         name:"猫桑"
+        //     }
+        // })
+        // console.log(v);
+        // v.$mount('#root');//el第二种写法,先创建Vue实例，再用v.$mount('#root')指定el值
+
+        //data的两种写法
+        new Vue({
+            el:'#root',
+            //第一种写法，对象式
+            // data:{
+            //     name:'猫桑'
+            // }
+
+             //第二种写法，函数式(只能为普通函数，不能为箭头函数，否则报错)，
+             //使用组件时必须采用此写法
+             data:function(){//data:function()可简写成data()
+                console.log("@@@",this);//此处this是Vue实例对象
+                return{
+                    name:"桑毛"
+                }
+             }
+        })
+    </script>
+</body>
+</html>

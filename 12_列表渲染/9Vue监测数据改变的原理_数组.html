@@ -1,0 +1,74 @@
+<!--
+ * @Description: 
+ * @Version: 2.0
+ * @Autor: Lai
+ * @Date: 2023-07-25 15:58:55
+ * @LastEditors: Lai
+ * @LastEditTime: 2023-07-27 10:59:43
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue监测数据改变的原理_数组</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>学校信息</h1>
+        <h2>学校名称：{{name}}</h2>
+        <h2>学校地址：{{address}}</h2>
+        <h2>校长是：{{leader}}</h2>
+        <hr>
+        <h1>学生信息</h1>
+        <button @click="addSex">添加一个属性，默认值是男</button>
+        <h2>学生姓名：{{student.name}}</h2>
+        <h2 v-if="student.sex">学生姓别：{{student.sex}}</h2>
+        <h2>学生年龄：真实：{{student.age.rAge}}，对外：{{student.age.sAge}}</h2>
+        <h2>爱好</h2>
+        <ul>
+            <li v-for="(h,index) in student.hobby" :key="index">
+                {{h}}
+            </li>
+        </ul>
+        <h2>朋友们</h2>
+        <ul>
+            <li v-for="(f,index) in student.friends" :key="index">
+                {{f.name}}--{{f.age}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false//阻止Vue在启动时生成生产提示
+    
+    // 用computed实现
+    const vm = new Vue({
+        el:'#root',
+        data:{
+           name:'农大',
+           address:'南昌',
+           student:{
+            name:'宇将军',
+            age:{
+                rAge:30,
+                sAge:19
+            },
+            hobby:['抽烟','喝酒','唱歌'],
+            friends:[
+            {name:'jack',age:33},
+            {name:'sanm',age:34}
+           ]
+           } 
+        },
+        methods: {
+            addSex(){
+                //Vue.set只能给data里面的对象添加
+                // Vue.set(this.student,'sex','男')
+                this.$set(this.student,'sex','男')
+            }
+        },
+    })
+</script>
+</html>
